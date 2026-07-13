@@ -2,15 +2,17 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Header Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="font-weight-bold text-dark mb-1">Edit Profil Guru</h2>
-            <p class="text-muted mb-0">Ubah data profil guru, beserta penugasan Mata Pelajaran, Kelas, dan Preferensi Jam Mengajar.</p>
+    <!-- Action Card -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+        <div class="card-body d-flex justify-content-between align-items-center p-4">
+            <div>
+                <h5 class="font-weight-bold text-dark mb-1"><i class="fas fa-user-edit text-warning me-2"></i>Edit Data Guru</h5>
+                <p class="text-muted mb-0 small">Perbarui data profil guru beserta penugasan Mata Pelajaran, Kelas, dan Preferensi Jam Mengajar.</p>
+            </div>
+            <a href="{{ route('admin.guru.index') }}" class="btn btn-light d-flex align-items-center gap-2" style="border-radius: 10px; border: 1px solid #e2e8f0;">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
         </div>
-        <a href="{{ route('admin.guru.index') }}" class="btn btn-light d-flex align-items-center gap-2" style="border-radius: 10px; border: 1px solid #e2e8f0;">
-            <i class="fas fa-arrow-left"></i> Kembali
-        </a>
     </div>
 
     <!-- Form Section -->
@@ -83,12 +85,12 @@
                         <label class="form-label font-weight-bold d-block mb-2">Mata Pelajaran yang Diajar</label>
                         <div class="p-3 border rounded-3 bg-light bg-opacity-20" style="max-height: 200px; overflow-y: auto; border-radius: 10px;">
                             @php
-                                $selectedMapels = old('mata_pelajaran_ids', $guru->mataPelajarans->pluck('id')->toArray());
+                                $selectedMapels = old('mata_pelajarans_ids', $guru->mataPelajarans->pluck('mata_pelajarans_id')->toArray());
                             @endphp
                             @forelse($mataPelajarans as $mapel)
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" name="mata_pelajaran_ids[]" value="{{ $mapel->id }}" id="mapel_{{ $mapel->id }}" {{ in_array($mapel->id, $selectedMapels) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="mapel_{{ $mapel->id }}">
+                                    <input class="form-check-input" type="checkbox" name="mata_pelajarans_ids[]" value="{{ $mapel->getKey() }}" id="mapel_{{ $mapel->getKey() }}" {{ in_array($mapel->getKey(), $selectedMapels) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="mapel_{{ $mapel->getKey() }}">
                                         <strong>{{ $mapel->nama_mapel }}</strong> <span class="text-muted small">({{ $mapel->kode_mapel }})</span>
                                     </label>
                                 </div>
@@ -96,7 +98,7 @@
                                 <span class="text-muted small">Belum ada data mata pelajaran. Silakan buat mata pelajaran terlebih dahulu.</span>
                             @endforelse
                         </div>
-                        @error('mata_pelajaran_ids')
+                        @error('mata_pelajarans_ids')
                             <div class="text-danger small mt-1">{{ $message }}</div>
                         @enderror
                     </div>
@@ -106,12 +108,12 @@
                         <label class="form-label font-weight-bold d-block mb-2">Kelas yang Diampu</label>
                         <div class="p-3 border rounded-3 bg-light bg-opacity-20" style="max-height: 200px; overflow-y: auto; border-radius: 10px;">
                             @php
-                                $selectedKelas = old('kelas_ids', $guru->kelas->pluck('id')->toArray());
+                                $selectedKelas = old('kelas_ids', $guru->kelas->pluck('kelas_id')->toArray());
                             @endphp
                             @forelse($kelas as $k)
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" name="kelas_ids[]" value="{{ $k->id }}" id="kelas_{{ $k->id }}" {{ in_array($k->id, $selectedKelas) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="kelas_{{ $k->id }}">
+                                    <input class="form-check-input" type="checkbox" name="kelas_ids[]" value="{{ $k->getKey() }}" id="kelas_{{ $k->getKey() }}" {{ in_array($k->getKey(), $selectedKelas) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="kelas_{{ $k->getKey() }}">
                                         <strong>Kelas {{ $k->nama_kelas }}</strong>
                                     </label>
                                 </div>
@@ -150,7 +152,7 @@
                             $grid[$jam->jam_ke][$jam->hari] = $jam;
                         }
                         $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
-                        $selectedJams = old('jam_pelajaran_ids', $guru->jamPelajarans->pluck('id')->toArray());
+                        $selectedJams = old('jam_pelajarans_ids', $guru->jamPelajarans->pluck('jam_pelajarans_id')->toArray());
                     @endphp
 
                   <div class="table-responsive">
@@ -161,7 +163,7 @@
         }
         $jamNumbers = $jamPelajarans->pluck('jam_ke')->unique()->sort()->values();
         $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
-        $selectedJams = old('jam_pelajaran_ids', $guru->jamPelajarans->pluck('id')->toArray());
+        $selectedJams = old('jam_pelajarans_ids', $guru->jamPelajarans->pluck('jam_pelajarans_id')->toArray());
     @endphp
 
     <table class="table table-bordered text-center align-middle mb-0" style="border-radius: 10px; overflow: hidden;">
@@ -183,8 +185,8 @@
                                 @php $jam = $jamGroups[$period][$day]; @endphp
                                 <div class="form-check d-flex justify-content-center m-0">
                                     <input class="form-check-input p-2 border-primary cursor-pointer checkbox-jam" 
-                                           type="checkbox" name="jam_pelajaran_ids[]" value="{{ $jam->id }}" id="jam_{{ $jam->id }}" 
-                                           {{ in_array($jam->id, $selectedJams) ? 'checked' : '' }}>
+                                           type="checkbox" name="jam_pelajarans_ids[]" value="{{ $jam->getKey() }}" id="jam_{{ $jam->getKey() }}" 
+                                           {{ in_array($jam->getKey(), $selectedJams) ? 'checked' : '' }}>
                                 </div>
                             @else
                                <span class="text-muted">-</span>
@@ -196,7 +198,7 @@
         </tbody>
     </table>
 </div>
-                    @error('jam_pelajaran_ids')
+                    @error('jam_pelajarans_ids')
                         <div class="text-danger small mt-2">{{ $message }}</div>
                     @enderror
                 </div>

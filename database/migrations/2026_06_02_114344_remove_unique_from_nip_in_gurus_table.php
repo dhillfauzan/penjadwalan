@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-          Schema::create('gurus', function (Blueprint $table) {
-        $table->id('gurus_id');
-        $table->string('nama_guru');
-        $table->string('nip')->unique();
-        $table->enum('jenis_kelamin', ['L', 'P']);
-        $table->string('no_telp')->nullable();
-        $table->timestamps();
-    });
+        Schema::table('gurus', function (Blueprint $table) {
+            $table->dropUnique('gurus_nip_unique');
+        });
     }
 
     /**
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gurus');
+        Schema::table('gurus', function (Blueprint $table) {
+            $table->unique('nip');
+        });
     }
 };

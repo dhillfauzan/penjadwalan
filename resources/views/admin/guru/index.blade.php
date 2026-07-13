@@ -2,15 +2,17 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Header Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="font-weight-bold text-dark mb-1">Tenaga Pengajar (Guru)</h2>
-            <p class="text-muted mb-0">Kelola profil guru beserta mata pelajaran, kelas, dan preferensi jam mengajar mereka.</p>
+    <!-- Action Card -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+        <div class="card-body d-flex justify-content-between align-items-center p-4">
+            <div>
+                <h5 class="font-weight-bold text-dark mb-1"><i class="fas fa-users text-primary me-2"></i>Tenaga Pengajar (Guru)</h5>
+                <p class="text-muted mb-0 small">Kelola profil guru beserta mata pelajaran, kelas, dan preferensi jam mengajar mereka.</p>
+            </div>
+            <a href="{{ route('admin.guru.create') }}" class="btn btn-primary d-flex align-items-center gap-2" style="border-radius: 10px; padding: 0.6rem 1.2rem;">
+                <i class="fas fa-plus"></i> Tambah Guru Baru
+            </a>
         </div>
-        <a href="{{ route('admin.guru.create') }}" class="btn btn-primary d-flex align-items-center gap-2" style="border-radius: 10px; padding: 0.6rem 1.2rem;">
-            <i class="fas fa-plus"></i> Tambah Guru Baru
-        </a>
     </div>
 
     <!-- Alert Success -->

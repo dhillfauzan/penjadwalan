@@ -2,15 +2,17 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Header Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="font-weight-bold text-dark mb-1">Edit Akun Pengguna</h2>
-            <p class="text-muted mb-0">Ubah kredensial atau hubungkan akun dengan profil Tenaga Pengajar.</p>
+    <!-- Action Card -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+        <div class="card-body d-flex justify-content-between align-items-center p-4">
+            <div>
+                <h5 class="font-weight-bold text-dark mb-1"><i class="fas fa-user-edit text-warning me-2"></i>Edit Akun Pengguna</h5>
+                <p class="text-muted mb-0 small">Perbarui data login dan koneksi data Tenaga Pengajar.</p>
+            </div>
+            <a href="{{ route('admin.users.index') }}" class="btn btn-light d-flex align-items-center gap-2" style="border-radius: 10px; border: 1px solid #e2e8f0;">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
         </div>
-        <a href="{{ route('admin.users.index') }}" class="btn btn-light d-flex align-items-center gap-2" style="border-radius: 10px; border: 1px solid #e2e8f0;">
-            <i class="fas fa-arrow-left"></i> Kembali
-        </a>
     </div>
 
     <!-- Form Card -->
@@ -69,24 +71,31 @@
                     </div>
                 </div>
 
-                <!-- Link to Guru (Optional) -->
+                <!-- Link to Guru -->
                 <div class="mb-4">
-                    <label for="guru_id" class="form-label font-weight-bold text-dark">Hubungkan ke Data Guru</label>
+                    <label for="nip_guru" class="form-label font-weight-bold text-dark">Hubungkan ke Data Guru</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light text-muted border-end-0"><i class="fas fa-link"></i></span>
-                        <select class="form-select border-start-0 @error('guru_id') is-invalid @enderror" id="guru_id" name="guru_id" style="border-radius: 0 10px 10px 0;">
+                        @php
+                            $selectedNip = old('nip_guru', $user->gurus->first() ? $user->gurus->first()->nip : '');
+                        @endphp
+                        <select class="form-select border-start-0 @error('nip_guru') is-invalid @enderror" id="nip_guru" name="nip_guru" style="border-radius: 0 10px 10px 0;">
                             <option value="">-- Pilih Guru (Opsional) --</option>
                             @foreach($gurus as $guru)
-                                <option value="{{ $guru->id }}" {{ old('guru_id', $user->guru->id ?? '') == $guru->id ? 'selected' : '' }}>
-                                    {{ $guru->nama_guru }} (NIP: {{ $guru->nip }})
+                                @php
+                                    // Hitung total mapel yang diajarkan oleh guru dengan NIP ini
+                                    $totalMapel = \App\Models\Guru::where('nip', $guru->nip)->count();
+                                @endphp
+                                <option value="{{ $guru->nip }}" {{ $selectedNip == $guru->nip ? 'selected' : '' }}>
+                                    {{ $guru->nama_guru }} (NIP: {{ $guru->nip }}) - Terhubung dengan {{ $totalMapel }} data mapel
                                 </option>
                             @endforeach
                         </select>
-                        @error('guru_id')
+                        @error('nip_guru')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <small class="form-text text-muted mt-2 d-block">Menghubungkan akun ini akan memberi hak akses bagi guru terkait untuk melihat jadwal pribadinya setelah masuk.</small>
+                    <small class="form-text text-muted mt-2 d-block">Memilih guru di sini akan secara otomatis menghubungkan akun ini ke seluruh data mata pelajaran yang diajar oleh guru tersebut (berdasarkan NIP).</small>
                 </div>
 
                 <!-- Submit Button -->

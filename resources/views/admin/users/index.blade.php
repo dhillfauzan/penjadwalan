@@ -2,15 +2,17 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Header Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="font-weight-bold text-dark mb-1">Daftar Akun Pengguna</h2>
-            <p class="text-muted mb-0">Kelola kredensial login untuk Tenaga Pengajar (Guru) di sekolah Anda.</p>
+    <!-- Action Card -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+        <div class="card-body d-flex justify-content-between align-items-center p-4">
+            <div>
+                <h5 class="font-weight-bold text-dark mb-1"><i class="fas fa-user-shield text-primary me-2"></i>Daftar Akun Pengguna</h5>
+                <p class="text-muted mb-0 small">Kelola kredensial login untuk Tenaga Pengajar (Guru) di sekolah Anda.</p>
+            </div>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary d-flex align-items-center gap-2" style="border-radius: 10px; padding: 0.6rem 1.2rem;">
+                <i class="fas fa-plus"></i> Tambah Akun Baru
+            </a>
         </div>
-        <a href="{{ route('admin.users.create') }}" class="btn btn-primary d-flex align-items-center gap-2" style="border-radius: 10px; padding: 0.6rem 1.2rem;">
-            <i class="fas fa-plus"></i> Tambah Akun Baru
-        </a>
     </div>
 
     <!-- Alert Success -->
@@ -55,9 +57,9 @@
                                 <span class="text-secondary"><i class="far fa-envelope me-2"></i>{{ $user->email }}</span>
                             </td>
                             <td>
-                                @if($user->guru)
+                                @if($user->gurus->isNotEmpty())
                                     <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill font-weight-bold">
-                                        <i class="fas fa-user-tie me-1"></i> {{ $user->guru->nama_guru }}
+                                        <i class="fas fa-user-tie me-1"></i> {{ $user->gurus->first()->nama_guru }} ({{ $user->gurus->count() }} Mapel)
                                     </span>
                                 @else
                                     <span class="text-muted small"><em>Belum dihubungkan</em></span>

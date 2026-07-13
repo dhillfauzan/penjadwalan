@@ -16,6 +16,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+    protected $primaryKey = 'users_id';
 
     /**
      * Get the attributes that should be cast.
@@ -29,8 +30,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function guru()
-{
-    return $this->hasOne(Guru::class);
-}
+    public function gurus()
+    {
+        return $this->hasMany(Guru::class, 'users_id');
+    }
 }

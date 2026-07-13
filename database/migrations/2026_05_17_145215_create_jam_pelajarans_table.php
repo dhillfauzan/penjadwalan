@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jam_pelajarans', function (Blueprint $table) {
-        $table->id();
+        $table->id('jam_pelajarans_id');
         $table->enum('hari', ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']);
         $table->integer('jam_ke');
         $table->time('waktu_mulai');

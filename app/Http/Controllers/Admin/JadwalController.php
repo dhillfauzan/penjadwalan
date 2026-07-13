@@ -26,9 +26,9 @@ class JadwalController extends Controller
         $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
 
         foreach ($kelasList as $kelas) {
-            $scheduleByClass[$kelas->id] = [];
+            $scheduleByClass[$kelas->getKey()] = [];
             foreach ($days as $day) {
-                $scheduleByClass[$kelas->id][$day] = [];
+                $scheduleByClass[$kelas->getKey()][$day] = [];
             }
         }
 

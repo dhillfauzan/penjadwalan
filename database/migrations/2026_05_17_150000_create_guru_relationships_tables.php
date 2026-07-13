@@ -13,25 +13,25 @@ return new class extends Migration
     {
         // Pivot Guru - Mata Pelajaran
         Schema::create('guru_mata_pelajaran', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('guru_id')->constrained('gurus')->onDelete('cascade');
-            $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajarans')->onDelete('cascade');
+            $table->id('id');
+            $table->foreignId('gurus_id')->constrained('gurus', 'gurus_id')->onDelete('cascade');
+            $table->foreignId('mata_pelajarans_id')->constrained('mata_pelajarans', 'mata_pelajarans_id')->onDelete('cascade');
             $table->timestamps();
         });
 
         // Pivot Guru - Kelas
         Schema::create('guru_kelas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('guru_id')->constrained('gurus')->onDelete('cascade');
-            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->id('id');
+            $table->foreignId('gurus_id')->constrained('gurus', 'gurus_id')->onDelete('cascade');
+            $table->foreignId('kelas_id')->constrained('kelas', 'kelas_id')->onDelete('cascade');
             $table->timestamps();
         });
 
         // Pivot Guru - Jam Pelajaran (Ketersediaan / Jam Mengajar Pilihan)
         Schema::create('guru_jam_pelajaran', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('guru_id')->constrained('gurus')->onDelete('cascade');
-            $table->foreignId('jam_pelajaran_id')->constrained('jam_pelajarans')->onDelete('cascade');
+            $table->id('id');
+            $table->foreignId('gurus_id')->constrained('gurus', 'gurus_id')->onDelete('cascade');
+            $table->foreignId('jam_pelajarans_id')->constrained('jam_pelajarans', 'jam_pelajarans_id')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -6,51 +6,12 @@
     <div class="card border-0 shadow-sm mb-4 d-print-none" style="border-radius: 16px;">
         <div class="card-body d-flex justify-content-between align-items-center p-4">
             <div>
-                <h5 class="font-weight-bold text-dark mb-1"><i class="fas fa-magic text-primary me-2"></i>Jadwal Pelajaran Otomatis</h5>
-                <p class="text-muted mb-0 small">Kelola dan susun jadwal sekolah Anda menggunakan kecerdasan buatan Particle Swarm Optimization (PSO).</p>
+                <h5 class="font-weight-bold text-dark mb-1"><i class="fas fa-calendar-alt text-primary me-2"></i>Hasil Jadwal Pelajaran (Semua Kelas)</h5>
+                <p class="text-muted mb-0 small">Lihat keseluruhan jadwal pelajaran untuk semua kelas yang telah digenerate oleh sistem.</p>
             </div>
-            <div>
-                <button onclick="window.print()" class="btn btn-outline-secondary d-inline-flex align-items-center gap-2 me-2" style="border-radius: 10px; padding: 0.6rem 1.4rem;">
-                    <i class="fas fa-print"></i> Cetak Jadwal
-                </button>
-                <form action="{{ route('admin.jadwal.generate') }}" method="POST" class="d-inline" onsubmit="showLoadingState(event)">
-                    @csrf
-                    <button type="submit" class="btn btn-success d-inline-flex align-items-center gap-2" id="btn-generate" style="border-radius: 10px; padding: 0.6rem 1.4rem;">
-                        <i class="fas fa-sync-alt" id="icon-sync"></i>
-                        <span id="text-generate">Generate Jadwal (PSO)</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Alert Success -->
-    @if(session('success'))
-        <div class="alert alert-success border-0 shadow-sm alert-dismissible fade show d-flex align-items-center gap-2 mb-4 d-print-none" role="alert" style="border-radius: 12px;">
-            <i class="fas fa-check-circle text-success"></i>
-            <div>{{ session('success') }}</div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger border-0 shadow-sm alert-dismissible fade show d-flex align-items-center gap-2 mb-4 d-print-none" role="alert" style="border-radius: 12px;">
-            <i class="fas fa-exclamation-triangle text-danger"></i>
-            <div>{{ session('error') }}</div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    <!-- Loading Indicator -->
-    <div id="loading-card" class="card border-0 shadow-sm mb-4 d-none d-print-none" style="border-radius: 16px; background-color: #f8fafc; border-left: 5px solid #0ea5e9;">
-        <div class="card-body p-4 d-flex align-items-center gap-3">
-            <div class="spinner-border text-info" role="status" style="width: 2.5rem; height: 2.5rem;">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div>
-                <h5 class="font-weight-bold text-dark mb-1">Sedang Menyusun Jadwal...</h5>
-                <p class="text-secondary small mb-0">Algoritma PSO sedang berjalan mencari kombinasi jadwal terbaik. Proses ini membutuhkan waktu beberapa detik.</p>
-            </div>
+            <button onclick="window.print()" class="btn btn-outline-secondary d-flex align-items-center gap-2" style="border-radius: 10px; padding: 0.6rem 1.4rem;">
+                <i class="fas fa-print"></i> Cetak Jadwal
+            </button>
         </div>
     </div>
 
@@ -114,16 +75,10 @@
     <div class="card border-0 shadow-sm" style="border-radius: 16px;">
         <div class="card-body">
             @if($jadwals->isEmpty())
-                <div class="text-center py-5 d-print-none">
+                <div class="text-center py-5">
                     <img src="https://cdn-icons-png.flaticon.com/512/2693/2693507.png" alt="No Schedule" style="max-width: 130px; opacity: 0.65;" class="mb-4">
                     <h4 class="text-secondary font-weight-bold">Belum Ada Jadwal Pelajaran</h4>
-                    <p class="text-muted small col-md-6 mx-auto mb-4">Sistem penjadwalan masih kosong. Silakan klik tombol <strong>Generate Jadwal (PSO)</strong> di atas untuk membuat jadwal sekolah otomatis dengan optimasi bebas bentrok.</p>
-                    <form action="{{ route('admin.jadwal.generate') }}" method="POST" onsubmit="showLoadingState(event)">
-                        @csrf
-                        <button type="submit" class="btn btn-primary px-4 py-2" style="border-radius: 10px;">
-                            <i class="fas fa-sync-alt me-1"></i> Mulai Generate Sekarang
-                        </button>
-                    </form>
+                    <p class="text-muted small col-md-6 mx-auto mb-4">Sistem penjadwalan masih kosong. Silakan hubungi admin sekolah untuk menggenerate jadwal terlebih dahulu.</p>
                 </div>
             @else
                 <!-- Dropdown Pilih Kelas -->
@@ -252,25 +207,6 @@
 </style>
 
 <script>
-    function showLoadingState(event) {
-        if (!confirm('Generate jadwal baru akan menghapus jadwal lama yang terdaftar. Lanjutkan?')) {
-            event.preventDefault();
-            return false;
-        }
-        const btn = document.getElementById('btn-generate');
-        const icon = document.getElementById('icon-sync');
-        const text = document.getElementById('text-generate');
-        btn.classList.add('disabled');
-        btn.style.opacity = '0.75';
-        icon.classList.add('fa-spin');
-        text.textContent = 'Menghitung PSO...';
-        const loadingCard = document.getElementById('loading-card');
-        if (loadingCard) {
-            loadingCard.classList.remove('d-none');
-            loadingCard.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-
     // Event change dropdown kelas
     document.addEventListener('DOMContentLoaded', function() {
         const selectKelas = document.getElementById('selectKelas');

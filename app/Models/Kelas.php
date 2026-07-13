@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kelas extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'kelas_id';
 
     protected $table = 'kelas';
     
@@ -22,7 +23,7 @@ class Kelas extends Model
     }
     public function guruMapel()
 {
-    return $this->belongsToMany(Guru::class, 'guru_mapel_kelas', 'kelas_id', 'guru_id')
-                ->withPivot('mata_pelajaran_id');
+    return $this->belongsToMany(Guru::class, 'guru_mapel_kelas', 'kelas_id', 'gurus_id')
+                ->withPivot('mata_pelajarans_id');
 }
 }

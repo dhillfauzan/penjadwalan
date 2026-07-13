@@ -116,22 +116,28 @@ class DatabaseSeeder extends Seeder
                 'nip' => $g['nip'],
                 'jenis_kelamin' => $g['jenis_kelamin'],
                 'no_telp' => $g['no_telp'],
-                'user_id' => $user->id,
+                'users_id' => $user->getKey(),
             ]);
 
             // Hubungkan guru dengan Mata Pelajaran (1 mapel berdasarkan indeks)
-            $mapelId = $mapels[$index % $mapels->count()]->id;
-            $guru->mataPelajarans()->sync([$mapelId]);
+            $mapelId = $mapels[$index % $mapels->count()]->getKey();
 
             // Hubungkan guru dengan Kelas (2 kelas berurutan)
             $classIds = [
-                $kelasList[$index % $kelasList->count()]->id,
-                $kelasList[($index + 1) % $kelasList->count()]->id
+                $kelasList[$index % $kelasList->count()]->getKey(),
+                $kelasList[($index + 1) % $kelasList->count()]->getKey()
             ];
-            $guru->kelas()->sync($classIds);
+            
+            foreach ($classIds as $kelasId) {
+                \App\Models\GuruMapelKelas::create([
+                    'gurus_id' => $guru->getKey(),
+                    'mata_pelajarans_id' => $mapelId,
+                    'kelas_id' => $kelasId
+                ]);
+            }
 
             // Hubungkan guru dengan beberapa Jam Pelajaran secara acak (10 jam ketersediaan)
-            $jamIds = $jams->pluck('id')->random(10)->toArray();
+            $jamIds = $jams->pluck('jam_pelajarans_id')->random(10)->toArray();
             $guru->jamPelajarans()->sync($jamIds);
         }
     }

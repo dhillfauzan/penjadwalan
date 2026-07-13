@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class JamPelajaran extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'jam_pelajarans_id';
 
     protected $table = 'jam_pelajarans';
     
@@ -21,6 +22,6 @@ class JamPelajaran extends Model
     // Relasi ke jadwal
     public function jadwals()
     {
-        return $this->hasMany(Jadwal::class, 'jam_pelajaran_id');
+        return $this->hasMany(Jadwal::class, 'jam_pelajarans_id');
     }
 }

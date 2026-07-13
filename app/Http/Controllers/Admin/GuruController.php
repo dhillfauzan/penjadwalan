@@ -30,32 +30,32 @@ class GuruController extends Controller
 {
     $request->validate([
         'nama_guru' => 'required|string|max:255',
-        'nip' => 'required|string|unique:gurus,nip',
+        'nip' => 'required|string',
         'jenis_kelamin' => 'required|in:L,P',
         'no_telp' => 'nullable|string',
-        'jam_pelajaran_ids' => 'nullable|array',
-        'jam_pelajaran_ids.*' => 'exists:jam_pelajarans,id',
-        'mata_pelajaran_ids' => 'nullable|array',
-        'mata_pelajaran_ids.*' => 'exists:mata_pelajarans,id',
+        'jam_pelajarans_ids' => 'nullable|array',
+        'jam_pelajarans_ids.*' => 'exists:jam_pelajarans,jam_pelajarans_id',
+        'mata_pelajarans_ids' => 'nullable|array',
+        'mata_pelajarans_ids.*' => 'exists:mata_pelajarans,mata_pelajarans_id',
         'kelas_ids' => 'nullable|array',
-        'kelas_ids.*' => 'exists:kelas,id',
+        'kelas_ids.*' => 'exists:kelas,kelas_id',
     ]);
 
     $guru = Guru::create($request->only(['nama_guru', 'nip', 'jenis_kelamin', 'no_telp']));
 
     // Simpan preferensi jam
-    if ($request->has('jam_pelajaran_ids')) {
-        $guru->jamPelajarans()->sync($request->jam_pelajaran_ids);
+    if ($request->has('jam_pelajarans_ids')) {
+        $guru->jamPelajarans()->sync($request->jam_pelajarans_ids);
     }
 
     // Simpan pengajaran (mapel + kelas)
-    if ($request->has('mata_pelajaran_ids') && $request->has('kelas_ids')) {
+    if ($request->has('mata_pelajarans_ids') && $request->has('kelas_ids')) {
         $pengajaranData = [];
-        foreach ($request->mata_pelajaran_ids as $mapelId) {
+        foreach ($request->mata_pelajarans_ids as $mapelId) {
             foreach ($request->kelas_ids as $kelasId) {
                 $pengajaranData[] = [
-                    'guru_id' => $guru->id,
-                    'mata_pelajaran_id' => $mapelId,
+                    'gurus_id' => $guru->getKey(),
+                    'mata_pelajarans_id' => $mapelId,
                     'kelas_id' => $kelasId,
                 ];
             }
@@ -82,30 +82,30 @@ class GuruController extends Controller
 {
     $request->validate([
         'nama_guru' => 'required|string|max:255',
-        'nip' => 'required|string|unique:gurus,nip,'.$guru->id,
+        'nip' => 'required|string',
         'jenis_kelamin' => 'required|in:L,P',
         'no_telp' => 'nullable|string',
-        'jam_pelajaran_ids' => 'nullable|array',
-        'jam_pelajaran_ids.*' => 'exists:jam_pelajarans,id',
-        'mata_pelajaran_ids' => 'nullable|array',
-        'mata_pelajaran_ids.*' => 'exists:mata_pelajarans,id',
+        'jam_pelajarans_ids' => 'nullable|array',
+        'jam_pelajarans_ids.*' => 'exists:jam_pelajarans,jam_pelajarans_id',
+        'mata_pelajarans_ids' => 'nullable|array',
+        'mata_pelajarans_ids.*' => 'exists:mata_pelajarans,mata_pelajarans_id',
         'kelas_ids' => 'nullable|array',
-        'kelas_ids.*' => 'exists:kelas,id',
+        'kelas_ids.*' => 'exists:kelas,kelas_id',
     ]);
 
     $guru->update($request->only(['nama_guru', 'nip', 'jenis_kelamin', 'no_telp']));
-    $guru->jamPelajarans()->sync($request->jam_pelajaran_ids ?? []);
+    $guru->jamPelajarans()->sync($request->jam_pelajarans_ids ?? []);
 
     // Hapus data pengajaran lama, lalu insert baru
-    GuruMapelKelas::where('guru_id', $guru->id)->delete();
+    GuruMapelKelas::where('gurus_id', $guru->getKey())->delete();
     
-    if ($request->has('mata_pelajaran_ids') && $request->has('kelas_ids')) {
+    if ($request->has('mata_pelajarans_ids') && $request->has('kelas_ids')) {
         $pengajaranData = [];
-        foreach ($request->mata_pelajaran_ids as $mapelId) {
+        foreach ($request->mata_pelajarans_ids as $mapelId) {
             foreach ($request->kelas_ids as $kelasId) {
                 $pengajaranData[] = [
-                    'guru_id' => $guru->id,
-                    'mata_pelajaran_id' => $mapelId,
+                    'gurus_id' => $guru->getKey(),
+                    'mata_pelajarans_id' => $mapelId,
                     'kelas_id' => $kelasId,
                 ];
             }

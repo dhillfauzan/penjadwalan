@@ -12,13 +12,14 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'guru')->with('guru')->get();
+        $users = User::where('role', 'guru')->with('gurus')->get();
         return view('admin.users.index', compact('users'));
     }
 
     public function create()
     {
-        $gurus = Guru::all();
+        // Ambil guru unik berdasarkan NIP
+        $gurus = Guru::with('mataPelajarans')->get()->unique('nip');
         return view('admin.users.create', compact('gurus'));
     }
 
@@ -28,7 +29,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
-            'guru_id' => 'nullable|exists:gurus,id'
+            'nip_guru' => 'nullable|string|exists:gurus,nip'
         ]);
 
         $user = User::create([
@@ -38,10 +39,8 @@ class UserController extends Controller
             'role' => 'guru',
         ]);
 
-        if ($request->guru_id) {
-            $guru = Guru::find($request->guru_id);
-            $guru->user_id = $user->id;
-            $guru->save();
+        if ($request->filled('nip_guru')) {
+            Guru::where('nip', $request->nip_guru)->update(['users_id' => $user->getKey()]);
         }
 
         return redirect()->route('admin.users.index')->with('success', 'User berhasil dibuat');
@@ -49,7 +48,8 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $gurus = Guru::all();
+        // Ambil guru unik berdasarkan NIP
+        $gurus = Guru::with('mataPelajarans')->get()->unique('nip');
         return view('admin.users.edit', compact('user', 'gurus'));
     }
 
@@ -57,9 +57,9 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$user->getKey().',users_id',
             'password' => 'nullable|min:6|confirmed',
-            'guru_id' => 'nullable|exists:gurus,id'
+            'nip_guru' => 'nullable|string|exists:gurus,nip'
         ]);
 
         $user->name = $request->name;
@@ -69,10 +69,12 @@ class UserController extends Controller
         }
         $user->save();
 
-        if ($request->guru_id) {
-            $guru = Guru::find($request->guru_id);
-            $guru->user_id = $user->id;
-            $guru->save();
+        // Reset semua relasi guru sebelumnya
+        Guru::where('users_id', $user->getKey())->update(['users_id' => null]);
+        
+        // Pasang ke guru-guru baru berdasarkan NIP
+        if ($request->filled('nip_guru')) {
+            Guru::where('nip', $request->nip_guru)->update(['users_id' => $user->getKey()]);
         }
 
         return redirect()->route('admin.users.index')->with('success', 'User updated');
@@ -81,10 +83,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // Hapus relasi guru
-        if ($user->guru) {
-            $user->guru->user_id = null;
-            $user->guru->save();
-        }
+        Guru::where('users_id', $user->getKey())->update(['users_id' => null]);
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', 'User deleted');
     }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MataPelajaran extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'mata_pelajarans_id';
 
     protected $table = 'mata_pelajarans';
     
@@ -19,11 +20,11 @@ class MataPelajaran extends Model
     // Relasi ke jadwal
     public function jadwals()
     {
-        return $this->hasMany(Jadwal::class, 'mata_pelajaran_id');
+        return $this->hasMany(Jadwal::class, 'mata_pelajarans_id');
     }
     public function guruKelas()
 {
-    return $this->belongsToMany(Guru::class, 'guru_mapel_kelas', 'mata_pelajaran_id', 'guru_id')
+    return $this->belongsToMany(Guru::class, 'guru_mapel_kelas', 'mata_pelajarans_id', 'gurus_id')
                 ->withPivot('kelas_id');
 }
 }

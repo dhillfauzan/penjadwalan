@@ -48,17 +48,17 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="guru_id" class="form-label">Hubungkan ke Guru (Opsional)</label>
-                    <select class="form-control @error('guru_id') is-invalid @enderror" id="guru_id" name="guru_id">
+                    <label for="gurus_id" class="form-label">Hubungkan ke Guru (Opsional)</label>
+                    <select class="form-control @error('gurus_id') is-invalid @enderror" id="gurus_id" name="gurus_id">
                         <option value="">-- Pilih Guru (Opsional) --</option>
                         @foreach($gurus as $guru)
-                            <option value="{{ $guru->id }}" {{ old('guru_id', $user->guru->id ?? '') == $guru->id ? 'selected' : '' }}>
+                            <option value="{{ $guru->getKey() }}" {{ old('gurus_id', $user->guru->getKey() ?? '') == $guru->getKey() ? 'selected' : '' }}>
                                 {{ $guru->nama_guru }} (NIP: {{ $guru->nip }})
                             </option>
                         @endforeach
                     </select>
                     <small class="form-text text-muted">Jika dipilih, user ini akan terhubung ke guru yang dipilih.</small>
-                    @error('guru_id')
+                    @error('gurus_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

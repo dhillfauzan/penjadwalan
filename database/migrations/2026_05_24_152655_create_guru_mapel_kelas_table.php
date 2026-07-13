@@ -10,12 +10,12 @@ return new class extends Migration
     {
         Schema::create('guru_mapel_kelas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('guru_id')->constrained('gurus')->onDelete('cascade');
-            $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajarans')->onDelete('cascade');
-            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->foreignId('gurus_id')->constrained('gurus', 'gurus_id')->onDelete('cascade');
+            $table->foreignId('mata_pelajarans_id')->constrained('mata_pelajarans', 'mata_pelajarans_id')->onDelete('cascade');
+            $table->foreignId('kelas_id')->constrained('kelas', 'kelas_id')->onDelete('cascade');
             $table->timestamps();
             
-            $table->unique(['guru_id', 'mata_pelajaran_id', 'kelas_id'], 'guru_mapel_kelas_unique');
+            $table->unique(['gurus_id', 'mata_pelajarans_id', 'kelas_id'], 'guru_mapel_kelas_unique');
         });
     }
 

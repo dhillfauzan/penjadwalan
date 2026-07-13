@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalGuru = Guru::count();
+        $totalGuru = Guru::distinct('nip')->count('nip');
         $totalMapel = MataPelajaran::count();
         $totalKelas = Kelas::count();
         $totalJam = JamPelajaran::count();

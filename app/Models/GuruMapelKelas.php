@@ -10,7 +10,7 @@ class GuruMapelKelas extends Model
     use HasFactory;
 
     protected $table = 'guru_mapel_kelas';
-    protected $fillable = ['guru_id', 'mata_pelajaran_id', 'kelas_id'];
+    protected $fillable = ['gurus_id', 'mata_pelajarans_id', 'kelas_id'];
 
     public function guru()
     {

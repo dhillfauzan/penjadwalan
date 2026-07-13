@@ -33,7 +33,7 @@ class KelasController extends Controller
 
     public function update(Request $request, Kelas $kelas)
     {
-        $request->validate(['nama_kelas' => 'required|string|unique:kelas,nama_kelas,' . $kelas->id]);
+        $request->validate(['nama_kelas' => 'required|string|unique:kelas,nama_kelas,' . $kelas->getKey() . ',kelas_id']);
         $kelas->update($request->all());
         return redirect()->route('admin.kelas.index')->with('success', 'Kelas berhasil diperbarui.');
     }

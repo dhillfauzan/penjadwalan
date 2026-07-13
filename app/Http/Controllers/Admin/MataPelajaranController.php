@@ -39,7 +39,7 @@ class MataPelajaranController extends Controller
     {
         $request->validate([
             'nama_mapel' => 'required|string|max:100',
-            'kode_mapel' => 'required|string|unique:mata_pelajarans,kode_mapel,' . $mataPelajaran->id,
+            'kode_mapel' => 'required|string|unique:mata_pelajarans,kode_mapel,' . $mataPelajaran->getKey() . ',mata_pelajarans_id',
         ]);
 
         $mataPelajaran->update($request->all());

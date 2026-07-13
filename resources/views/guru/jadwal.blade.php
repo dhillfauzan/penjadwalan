@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Header Section -->
-    <div class="row mb-4">
-        <div class="col-12 d-flex justify-content-between align-items-center">
+    <!-- Header Notification Card -->
+    <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px;">
+        <div class="card-body d-flex justify-content-between align-items-center p-4">
             <div>
-                <h2 class="font-weight-bold text-dark">Jadwal Mengajar Anda</h2>
-                <p class="text-muted mb-0">Selamat datang, <strong>{{ $guru->nama_guru }}</strong>. Berikut adalah daftar jadwal mengajar Anda di sekolah.</p>
+                <h5 class="font-weight-bold text-dark mb-1"><i class="fas fa-chalkboard-teacher text-primary me-2"></i>Jadwal Mengajar Anda</h5>
+                <p class="text-muted mb-0 small">Selamat datang, <strong>{{ $guru->nama_guru }}</strong>. Berikut adalah daftar jadwal mengajar Anda di sekolah.</p>
             </div>
-            <div class="bg-white p-3 rounded-3 shadow-sm border">
+            <div class="bg-light px-4 py-2 rounded-3 border">
                 <span class="text-secondary small d-block">NIP Anda:</span>
                 <span class="font-weight-bold text-dark">{{ $guru->nip ?? '-' }}</span>
             </div>
