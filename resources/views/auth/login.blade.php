@@ -62,9 +62,9 @@
                                   </div>
                               </div>
                               <!--logo End-->
-                              <h4 class="logo-title ms-3">Sistem Penjadwalan</h4>
+                              <h4 class="logo-title ms-3">Sistem Penjadwalan Mata Pelajaran</h4>
                            </a>
-                           <h2 class="mb-2 text-center">Sign In</h2>
+                           <h3 class="mb-2 text-center">Sign In</h3>
                            <p class="text-center">Login untuk masuk ke dashboard.</p>
                            
                            <!-- Validation Errors -->
@@ -101,10 +101,7 @@
                                     </div>
                                  </div>
                                  <div class="col-lg-12 d-flex justify-content-between">
-                                    <div class="form-check mb-3">
-                                       <input type="checkbox" class="form-check-input" id="remember_me" name="remember">
-                                       <label class="form-check-label" for="remember_me">Remember Me</label>
-                                    </div>
+                                    
                                  </div>
                               </div>
                               <div class="d-flex justify-content-center mt-3">
@@ -127,7 +124,7 @@
                </div>
             </div>
             <div class="col-md-6 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
-               <img src="{{ asset('template/html/assets/images/auth/01.png') }}" class="img-fluid gradient-main animated-scaleX" alt="images" style="object-fit: cover; height: 100%; width: 100%;">
+               <img src="{{ asset('template/html/assets/images/auth/11.png') }}" class="img-fluid gradient-main animated-scaleX" alt="images" style="object-fit: cover; height: 100%; width: 100%;">
             </div>
          </div>
       </section>

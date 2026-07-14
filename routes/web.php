@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
             'kelas' => 'kelas'
         ]);
         Route::post('/jadwal/generate', [JadwalController::class, 'generate'])->name('jadwal.generate');
+        Route::get('/jadwal/semua-guru', [JadwalController::class, 'semuaGuru'])->name('jadwal.semua-guru');
         Route::resource('jadwal', JadwalController::class);
         Route::get('/optimasi', [OptimasiController::class, 'index'])->name('optimasi');
         Route::post('/optimasi/run', [OptimasiController::class, 'run'])->name('optimasi.run');

@@ -138,13 +138,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.guru.*') ? 'active' : '' }}" href="{{ route('admin.guru.index') }}">
+                        <a class="nav-link {{ request()->routeIs('admin.kelas.*') ? 'active' : '' }}" href="{{ route('admin.kelas.index') }}">
                             <i class="icon">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.89526 2H15.0695C17.7773 2 19.9735 3.06605 20 5.79337V20.9668C19.9989 21.1374 19.9565 21.3051 19.8765 21.4554C19.7479 21.7007 19.5259 21.8827 19.2615 21.9598C18.997 22.0368 18.7128 22.0023 18.4741 21.8641L11.9912 18.6215L5.47299 15.3701C4.40573 14.8726 4 14.4284 4 13.7088V5.79337C4 3.06605 6.19625 2 8.89526 2Z" fill="currentColor"/>
+                                    <path opacity="0.4" d="M12 3L2 9L12 15L22 9L12 3Z" fill="currentColor"/>
+                                    <path d="M12 13.5L4.5 9L12 4.5L19.5 9L12 13.5Z" fill="currentColor"/>
                                 </svg>
                             </i>
-                            <span class="item-name">Tenaga Pengajar</span>
+                            <span class="item-name">Kelas</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -170,18 +171,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.kelas.*') ? 'active' : '' }}" href="{{ route('admin.kelas.index') }}">
+                        <a class="nav-link {{ request()->routeIs('admin.guru.*') ? 'active' : '' }}" href="{{ route('admin.guru.index') }}">
                             <i class="icon">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path opacity="0.4" d="M12 3L2 9L12 15L22 9L12 3Z" fill="currentColor"/>
-                                    <path d="M12 13.5L4.5 9L12 4.5L19.5 9L12 13.5Z" fill="currentColor"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.89526 2H15.0695C17.7773 2 19.9735 3.06605 20 5.79337V20.9668C19.9989 21.1374 19.9565 21.3051 19.8765 21.4554C19.7479 21.7007 19.5259 21.8827 19.2615 21.9598C18.997 22.0368 18.7128 22.0023 18.4741 21.8641L11.9912 18.6215L5.47299 15.3701C4.40573 14.8726 4 14.4284 4 13.7088V5.79337C4 3.06605 6.19625 2 8.89526 2Z" fill="currentColor"/>
                                 </svg>
                             </i>
-                            <span class="item-name">Kelas</span>
+                            <span class="item-name">Tenaga Pengajar</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('admin.jadwal.*') ? 'active' : '' }}" href="{{ route('admin.jadwal.index') }}">
+                        <a class="nav-link {{ request()->routeIs('admin.jadwal.index') ? 'active' : '' }}" href="{{ route('admin.jadwal.index') }}">
                             <i class="icon">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path opacity="0.4" d="M19 4H18V2H16V4H8V2H6V4H5C3.89 4 3.01 4.9 3.01 6L3 20C3 21.1 3.89 22 5 22H19C20.1 22 21 21.1 21 20V6C21 4.9 20.1 4 19 4ZM19 20H5V10H19V20Z" fill="currentColor"/>
@@ -192,6 +192,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('admin.jadwal.semua-guru') ? 'active' : '' }}" href="{{ route('admin.jadwal.semua-guru') }}">
+                            <i class="icon">
+                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path opacity="0.4" d="M11.9488 14.54C8.49884 14.54 5.58789 15.1038 5.58789 17.2795C5.58789 19.4562 8.51765 20.0001 11.9488 20.0001C15.3988 20.0001 18.3098 19.4364 18.3098 17.2606C18.3098 15.084 15.38 14.54 11.9488 14.54Z" fill="currentColor"></path>
+                                    <path opacity="0.4" d="M11.949 12.467C14.2851 12.467 16.1583 10.5831 16.1583 8.23351C16.1583 5.88306 14.2851 4 11.949 4C9.61293 4 7.73975 5.88306 7.73975 8.23351C7.73975 10.5831 9.61293 12.467 11.949 12.467Z" fill="currentColor"></path>
+                                </svg>
+                            </i>
+                            <span class="item-name">Jadwal Guru</span>
+                        </a>
+                    </li>
+                    <!--li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('admin.optimasi') ? 'active' : '' }}" href="{{ route('admin.optimasi') }}">
                             <i class="icon">
                                 <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -200,7 +211,7 @@
                             </i>
                             <span class="item-name">Optimasi PSO</span>
                         </a>
-                    </li>
+                    </li-->
                 @elseif(auth()->user()->role == 'guru')
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('guru.jadwal') ? 'active' : '' }}" href="{{ route('guru.jadwal') }}">
@@ -230,9 +241,9 @@
     <div class="sidebar-footer"></div>
 </aside>
 
-<!-- MAIN CONTENT -->
-<main class="main-content">
-    <div class="position-relative iq-banner">
+<main class="main-content" style="background-color: #f5f6fa;">
+    <!-- Bagian Banner dan Navbar dibuat Sticky di atas -->
+    <div class="position-sticky iq-banner" style="top: 0; z-index: 10;">
         <!-- Navbar Top -->
         <nav class="nav navbar navbar-expand-xl navbar-light iq-navbar">
             <div class="container-fluid navbar-inner">
@@ -309,34 +320,60 @@
                 </div>
             </div>
         </nav>
-
+        
         <!-- Nav Header Component (Banner) -->
-        <div class="iq-navbar-header" style="height: 215px;">
+        <div class="iq-navbar-header" style="height: 220px;">
             <div class="container-fluid iq-container">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="flex-wrap d-flex justify-content-between align-items-center">
-                            <div>
-                                <h1>@yield('page-title', 'Dashboard')</h1>
-                                <p class="text-capitalize">{{ auth()->user()->role }} Area</p>
+                        <div class="flex-wrap d-flex justify-content-between align-items-start" style="padding-top: 18px;">
+                            <div class="ps-4">
+                                @php
+                                    $routeName = Route::currentRouteName() ?? '';
+                                    $defaultTitle = 'Dashboard';
+                                    
+                                    if (str_contains($routeName, 'users')) {
+                                        $defaultTitle = 'Akun Pengguna';
+                                    } elseif (str_contains($routeName, 'guru.jadwal.mengajar')) {
+                                        $defaultTitle = 'Jadwal Mengajar';
+                                    } elseif (str_contains($routeName, 'guru.jadwal')) {
+                                        $defaultTitle = 'Jadwal Saya';
+                                    } elseif (str_contains($routeName, 'guru')) {
+                                        $defaultTitle = 'Tenaga Pengajar';
+                                    } elseif (str_contains($routeName, 'kelas')) {
+                                        $defaultTitle = 'Kelas';
+                                    } elseif (str_contains($routeName, 'mata-pelajaran')) {
+                                        $defaultTitle = 'Mata Pelajaran';
+                                    } elseif (str_contains($routeName, 'jam-pelajaran')) {
+                                        $defaultTitle = 'Jam Pelajaran';
+                                    } elseif (str_contains($routeName, 'jadwal.semua-guru') || request()->is('admin/jadwal/semua-guru*')) {
+                                        $defaultTitle = 'Jadwal Guru';
+                                    } elseif (str_contains($routeName, 'jadwal')) {
+                                        $defaultTitle = 'Hasil Jadwal';
+                                    } elseif (str_contains($routeName, 'optimasi')) {
+                                        $defaultTitle = 'Optimasi Penjadwalan';
+                                    }
+                                @endphp
+                                <h1 class="text-white">@yield('page-title', $defaultTitle)</h1>
+                                <p class="text-white text-capitalize mb-0">{{ auth()->user()->role }} Area</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="iq-header-img">
-                <img src="{{ asset('template/html/assets/images/dashboard/top-header.png') }}" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX">
-                <img src="{{ asset('template/html/assets/images/dashboard/top-header1.png') }}" alt="header" class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX">
-                <img src="{{ asset('template/html/assets/images/dashboard/top-header2.png') }}" alt="header" class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX">
-                <img src="{{ asset('template/html/assets/images/dashboard/top-header3.png') }}" alt="header" class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX">
-                <img src="{{ asset('template/html/assets/images/dashboard/top-header4.png') }}" alt="header" class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX">
-                <img src="{{ asset('template/html/assets/images/dashboard/top-header5.png') }}" alt="header" class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX">
+                <img src="{{ asset('template/html/assets/images/dashboard/11.jpg') }}" alt="header" class="theme-color-default-img img-fluid w-100 h-100 animated-scaleX" style="object-fit: cover;">
+                <img src="{{ asset('template/html/assets/images/dashboard/top-header.png') }}" alt="header" class="theme-color-purple-img img-fluid w-100 h-100 animated-scaleX">
+                <img src="{{ asset('template/html/assets/images/dashboard/top-header1.png') }}" alt="header" class="theme-color-blue-img img-fluid w-100 h-100 animated-scaleX">
+                <img src="{{ asset('template/html/assets/images/dashboard/top-header2.png') }}" alt="header" class="theme-color-green-img img-fluid w-100 h-100 animated-scaleX">
+                <img src="{{ asset('template/html/assets/images/dashboard/top-header3.png') }}" alt="header" class="theme-color-yellow-img img-fluid w-100 h-100 animated-scaleX">
+                <img src="{{ asset('template/html/assets/images/dashboard/top-header4.png') }}" alt="header" class="theme-color-pink-img img-fluid w-100 h-100 animated-scaleX">
             </div>
         </div>
     </div>
 
     <!-- Dynamic Content -->
-    <div class="conatiner-fluid content-inner mt-n5 py-0">
+    <div class="container-fluid content-inner mt-n3 py-0" style="position: relative; z-index: 11; background-color: #f5f6fa; padding-top: 20px !important;">
         @yield('content')
     </div>
 
@@ -354,7 +391,7 @@
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M15.85 2.50065C16.481 2.50065 17.111 2.58965 17.71 2.79065C21.401 3.99065 22.731 8.04065 21.62 11.5806C20.99 13.3896 19.96 15.0406 18.611 16.3896C16.68 18.2596 14.561 19.9196 12.28 21.3496L12.03 21.5006L11.77 21.3396C9.48102 19.9196 7.35002 18.2596 5.40102 16.3796C4.06102 15.0306 3.03002 13.3896 2.39002 11.5806C1.26002 8.04065 2.59002 3.99065 6.32102 2.76965C6.61102 2.66965 6.91002 2.59965 7.21002 2.56065H7.33002C7.61102 2.51965 7.89002 2.50065 8.17002 2.50065H8.28002C8.91002 2.51965 9.52002 2.62965 10.111 2.83065H10.17C10.21 2.84965 10.24 2.87065 10.26 2.88965C10.481 2.96065 10.69 3.04065 10.89 3.15065L11.27 3.32065C11.3618 3.36962 11.4649 3.44445 11.554 3.50912C11.6104 3.55009 11.6612 3.58699 11.7 3.61065C11.7163 3.62028 11.7329 3.62996 11.7496 3.63972C11.8354 3.68977 11.9247 3.74191 12 3.79965C13.111 2.95065 14.46 2.49065 15.85 2.50065Z" fill="currentColor"></path>
                     </svg>
                 </span>
-                by <a href="#">Penjadwalan</a>.
+                by <a href="#">Mahasiswa Universitas BSI Margonda</a>.
             </div>
         </div>
     </footer>
